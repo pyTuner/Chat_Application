@@ -1,8 +1,9 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { View, Text, SafeAreaView, Pressable, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
 
 import ChatComponent from '../components/ChatComponent';
+import Modal from '../components/Modal';
 import { styles } from '../../utils/styles';
 
 const Chat = () => {
@@ -59,13 +60,16 @@ const Chat = () => {
         },
         
     ]
+    
+    const [ visible, setVisible ] = useState(false);
+
     return (
         <SafeAreaView style={ styles.chatscreen }>
             <View style={ styles.chattopContainer }>
                 <View style={ styles.chatheader }>
                     <Text style={ styles.chatheading}>Chats</Text>
 
-                    <Pressable onPress={ () => console.warn('Button Pressed!')}>
+                    <Pressable onPress={ () => setVisible(true)} >
                         <Icon name='edit' size={24} color='green' />
                     </Pressable>
                 </View>
@@ -88,6 +92,7 @@ const Chat = () => {
                     )
                 }
             </View>
+            {visible ? <Modal setVisible={setVisible} /> : ''}
         </SafeAreaView>
     )
 }

@@ -22,28 +22,28 @@ const ChatComponent = ({ item }) => {
     };
 
     return (
-   <Pressable style={styles.cchat} onPress={ handleNavigation } >
-        <Icon 
-            name='person-circle-outline'
-            size={45}
-            color='black'
-            style={ styles.cavatar }
-        />
-        <View style={ styles.crightContainer} >
-            <View>
-                <Text style={ styles.cusername} >{ item.name }</Text>
-                <Text style= { styles.cmessage } >
-                    {message?.text ?message.text: `Say Hello, to ${item.name}`}
-                </Text>
-            </View>
-            <View>
-                <Text style={styles.ctime}>
-                    {message?.time ? message.time : 'now'}
-                </Text>
-            </View>
-        </View>
-   </Pressable>
-  )
+        <Pressable style={styles.cchat} onPress={ handleNavigation } >
+                <Icon 
+                    name='person-circle-outline'
+                    size={45}
+                    color='black'
+                    style={ styles.cavatar }
+                />
+                <View style={ styles.crightContainer} >
+                    <View>
+                        <Text style={ styles.cusername} >{ item.name }</Text>
+                        <Text style= { styles.cmessage } >
+                            {message?.text ?message.text: `Say Hello, to ${item.name}`}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.ctime}>
+                            {message?.time ? message.time : 'now'}
+                        </Text>
+                    </View>
+                </View>
+        </Pressable>
+    )
 }
 
 export default ChatComponent;
