@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { styles } from "../../utils/styles";
+import socket from "../../utils/socket";
 
 
 const Model = ({ setVisible }) => {
@@ -9,8 +10,10 @@ const Model = ({ setVisible }) => {
     // close the Modal component
     const closeModal = () => setVisible(false);
 
+    // sends message containing group name to the server
     const handleCreateRoom = () => {
-        console.log({ groupName });
+        // console.log({ groupName });
+        socket.emit('createRoom', groupName);
         closeModal();
     }
 

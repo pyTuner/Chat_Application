@@ -1,67 +1,37 @@
-import { React, useState } from 'react';
+import { React, useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text, SafeAreaView, Pressable, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
 
 import ChatComponent from '../components/ChatComponent';
 import Modal from '../components/Modal';
 import { styles } from '../../utils/styles';
+import socket from '../../utils/socket';
 
 const Chat = () => {
 
     // dummy rooms
-    const rooms = [
-        {
-            id:'1',
-            name:'Collage Group',
-            message: [
-                {
-                    id:'1a',
-                    text:'Hey, whats up',
-                    time:'01:12',
-                    user:'Omkar'
-                },
-                {
-                    id:'1b',
-                    text:'Just breathing in, out',
-                    time:'01:12',
-                    user:'Aditya'
-                },
-                {
-                    id:'1c',
-                    text:'LOL 😂',
-                    time:'01:14',
-                    user:'Makaranda'
-                },
-            ]
-        },
-        {
-            id:'2',
-            name: "Biker's Gang 🍻🏍️" ,
-            message: [
-                {
-                    id:'2a',
-                    text:'Is anybody up?',
-                    time:'04:20',
-                    user:'Tanesh'
-                },
-                {
-                    id:'2b',
-                    text:'yeah, just came from the bar🫨🥃🍾',
-                    time:'04:22',
-                    user:'Ravi'
-                },
-                {
-                    id:'3c',
-                    text:'Are you guys for real😳😆',
-                    time:'01:14',
-                    user:'Shreenidhi'
-                },
-            ]
-        },
-        
-    ]
-    
+    const [rooms, setRooms] = useState([]);
     const [ visible, setVisible ] = useState(false);
+    
+    // Executes when component mounts
+    useLayoutEffect(() => {
+        // console.log('hit')
+        const fetchGroups = () => {
+            fetch('http://192.168.0.166:4000/api')
+                .then((res) => res.json())
+                .then((data) => setRooms(data))
+                .catch((error) => console.error(error));
+        }
+        fetchGroups();
+    }, []);
+
+
+    // Executes whenever there is new trigger from the backend
+    useEffect(() => {
+        socket.on('roomsList', (rooms) => {
+            setRooms(rooms);
+        } )
+    }, [socket])
 
     return (
         <SafeAreaView style={ styles.chatscreen }>

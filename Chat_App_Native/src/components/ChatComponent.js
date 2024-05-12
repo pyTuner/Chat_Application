@@ -10,7 +10,7 @@ const ChatComponent = ({ item }) => {
 
     // retrives the last message in the array from the 'item' prop.
     useLayoutEffect(() => {
-        setMessage(item.message[item.message.length - 1]);
+        setMessage(item?.message[item?.message.length - 1]);
     }, []);
 
     // navigates to the messaging screen
